@@ -1,5 +1,6 @@
 import './App.css';
 import { Dispatch, SetStateAction, useState } from 'react';
+import { EscrowCosts } from './components/EscrowCosts';
 
 const calcMortgagePayment = (principal: number, annualInterestRate: number): number => {
   const percentageRate = +annualInterestRate / 1200;
@@ -48,7 +49,10 @@ export default function App () {
   const homeownerInsurance = calcTaxEstimate(houseValue, exampleInsuranceRate);
 
   const principal = houseValue - downPayment;
+  const downPaymentPercent = (houseValue / downPayment) * 10;
   const monthly = calcMortgagePayment(principal, interestRate);
+
+  const requiresPMI = downPaymentPercent < 20
 
   const downPercentMath = (e: number) => setDownPayment(e * houseValue)
 
@@ -72,7 +76,7 @@ export default function App () {
           <p>interestRate: {interestRate.toLocaleString()}</p>
           <p>principal: {principal.toLocaleString()}</p>
           <p>down payment: {downPayment.toLocaleString()}</p>
-          <p>down payment percent: {((houseValue / downPayment)).toLocaleString()}</p>
+          <p>down payment percent: {downPaymentPercent.toLocaleString()} %</p>
         </div>
         <div>
           <h2>Monthly</h2>
@@ -81,7 +85,13 @@ export default function App () {
           <p>homeowners insurance: {homeownerInsurance.toLocaleString()}</p>
           <p>total: {(monthly + propertyTaxes + homeownerInsurance).toLocaleString()}</p>
         </div>
-
+        <div>
+          <h2>Closing Costs</h2>
+          <EscrowCosts
+            propertyTaxes={propertyTaxes}
+            homeownerInsurance={homeownerInsurance}
+          />
+        </div>
       </header>
     </div>
   );
