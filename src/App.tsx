@@ -57,8 +57,15 @@ export default function App () {
   const downPercentMath = (e: number) => setDownPayment(e * houseValue)
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app">
+      <header className="app-header">
+        <div>
+          <img className="app-logo" src="logo192.png" alt="Mortgage & Closing Cost Calculator Logo"/>
+        </div>
+        <div className="app-name">Mortgage & Closing Cost Calculator</div>
+      </header>
+      <main>
+        <h2>House & Mortgage Information</h2>
         <NumInput id={'house-value'} label={'House Value: $'} setter={setHouseValue} value={houseValue}/>
         {/*<button onClick={() => setIsDownPercent(!isDownPercent)} disabled={isDownPercent}>Percent</button>*/}
         {/*<button onClick={() => setIsDownPercent(!isDownPercent)} disabled={!isDownPercent}>Dollars</button>*/}
@@ -92,7 +99,7 @@ export default function App () {
             homeownerInsurance={homeownerInsurance}
           />
         </div>
-      </header>
+      </main>
     </div>
   );
 };
